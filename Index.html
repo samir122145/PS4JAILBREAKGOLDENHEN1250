@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PS4 GoldHEN Injector</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function injectPayload() {
+      let ip = prompt("Enter your PS4 IP address (e.g. 192.168.0.100):");
+      if (!ip) return alert("No IP entered.");
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://" + ip + ":9090", true);
+      xhr.send(); // You must have BinLoader waiting on your PS4
+      alert("Payload sent! Check your PS4.");
+    }
+
+    // Register service worker for offline cache
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(() => console.log('Service Worker registered!'))
+          .catch(err => console.error('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>🎮 PS4 GoldHEN Injector</h1>
+  <p>This site caches for offline use. Visit once online, then launch locally from your PS4!</p>
+  <button onclick="injectPayload()">Inject GoldHEN</button>
+</body>
+</html>
